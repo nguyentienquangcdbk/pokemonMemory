@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import InteractScreen from "./components/InteractScreen";
 import MainScreen from "./components/MainScreen";
+import OutScreen from "./components/OutScreen";
 import ResultScreen from "./components/ResultScreen";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       {status === "threeScreen" && (
         <ResultScreen setStatus={(f) => setStatus(f)} startAt={startAt} />
       )}
+      {status === "out" && <OutScreen setStatus={(f) => setStatus(f)} />}
     </div>
   );
 }

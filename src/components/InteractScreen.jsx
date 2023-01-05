@@ -7,7 +7,7 @@ const InteractScreen = ({ num = 4, setStatus }) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-
+  const [countdown, setCountDown] = useState(num * 11);
   const shuffleCards = () => {
     let primaryArr = cardImages.slice(0, num);
 
@@ -20,7 +20,16 @@ const InteractScreen = ({ num = 4, setStatus }) => {
   useEffect(() => {
     shuffleCards();
   }, [num]);
-
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountDown((prev) => prev - 1);
+      console.log(countdown);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  if (countdown === 0) {
+    setStatus("out");
+  }
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
@@ -63,8 +72,10 @@ const InteractScreen = ({ num = 4, setStatus }) => {
       >
         quay về
       </button>
+
+      <h2 className="text-center text-white">thời gian còn lại :{countdown}</h2>
       <div
-        className={`w-full  gap-5 min-h-[100vh] h-full grid grid-cols-10 grid-rows-5 pt-5 px-5`}
+        className={`w-full  gap-5 min-h-[100vh] h-full grid-cols-4 md:grid-cols-6 grid lg:grid-cols-10 grid-rows-5 pt-5 px-5`}
       >
         {arr?.map((item, index) => (
           <Card
